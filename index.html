@@ -1,0 +1,794 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>InsightX Registration</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@300;400;500;600;700&family=Bebas+Neue&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        :root {
+            --dark-bg: #11022e;
+            --main-bg: #1c034b;
+            --glass-bg: rgba(255, 255, 255, 0.05);
+            --glass-border: 1px solid rgba(255, 255, 255, 0.1);
+            --text-color: #f0f0f0;
+            --accent-color: #e66465;
+            --insightx-color: #9d50e8;
+            --form-bg-gradient: linear-gradient(180deg, rgba(255, 255, 255, 0.03), rgba(255, 255, 255, 0));
+        }
+
+        body {
+            font-family: 'Montserrat', sans-serif;
+            margin: 0;
+            padding: 0;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            min-height: 100vh;
+            background: linear-gradient(135deg, var(--dark-bg), var(--main-bg));
+            color: var(--text-color);
+            position: relative;
+            background-attachment: fixed;
+            overflow-x: hidden;
+            padding: 40px 0;
+            transition: opacity 0.5s ease-in-out;
+        }
+
+        .background-video-container {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100vw;
+            height: 100vh;
+            z-index: -2;
+            overflow: hidden;
+        }
+
+        .background-video {
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            min-width: 100%;
+            min-height: 100%;
+            width: auto;
+            height: auto;
+            transform: translateX(-50%) translateY(-50%);
+            object-fit: cover;
+            filter: brightness(0.7) contrast(1.1);
+            animation: pan-zoom 30s linear infinite alternate;
+        }
+
+        .video-overlay {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-color: rgba(0, 0, 0, 0.4);
+            z-index: -1;
+            animation: overlay-pulse 4s infinite alternate;
+        }
+
+        @keyframes pan-zoom {
+            0% { transform: scale(1.0) translateX(-50%) translateY(-50%); }
+            100% { transform: scale(1.1) translateX(-50%) translateY(-50%); }
+        }
+
+        @keyframes overlay-pulse {
+            0% { background-color: rgba(0, 0, 0, 0.4); }
+            100% { background-color: rgba(0, 0, 0, 0.5); }
+        }
+
+        .creative-container {
+            width: 100%;
+            max-width: 700px;
+            background: var(--glass-bg);
+            border-radius: 25px;
+            border: var(--glass-border);
+            backdrop-filter: blur(15px);
+            -webkit-backdrop-filter: blur(15px);
+            box-shadow: 0 8px 32px 0 rgba(0, 0, 0, 0.37);
+            transition: all 0.6s cubic-bezier(0.2, 0.8, 0.2, 1);
+            padding: 0;
+            margin: 20px;
+            overflow: hidden;
+            z-index: 1;
+            position: relative;
+            animation: container-pulse 5s infinite alternate;
+        }
+
+        @keyframes container-pulse {
+            0% { box-shadow: 0 8px 32px 0 rgba(0, 0, 0, 0.37); }
+            100% { box-shadow: 0 10px 40px 0 rgba(0, 0, 0, 0.5), 0 0 25px rgba(157, 80, 232, 0.4); }
+        }
+
+        .creative-container:hover {
+            transform: translateY(-8px) scale(1.005);
+            box-shadow: 0 15px 45px 0 rgba(0, 0, 0, 0.5);
+            animation-play-state: paused;
+        }
+        
+        .top-hero-banner {
+            width: 100%;
+            height: 200px;
+            position: relative;
+            z-index: 2;
+            clip-path: polygon(0 0, 100% 0, 100% 85%, 0 100%);
+            transition: clip-path 0.5s ease-in-out;
+            overflow: hidden;
+        }
+
+        .top-hero-banner img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            display: block;
+            transition: transform 0.5s ease-in-out, filter 0.5s ease-in-out;
+        }
+
+        .creative-container:hover .top-hero-banner {
+            clip-path: polygon(0 0, 100% 0, 100% 95%, 0 100%);
+        }
+
+        .creative-container:hover .top-hero-banner img {
+            transform: scale(1.05);
+            filter: brightness(1.1) saturate(1.3);
+        }
+
+        .main-header {
+            position: relative;
+            height: 250px;
+            overflow: hidden;
+        }
+
+        .main-header .main-banner-image {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            filter: brightness(0.8) saturate(1.2);
+            transition: transform 0.5s ease-in-out, filter 0.5s ease-in-out;
+        }
+        
+        .creative-container:hover .main-banner-image {
+            transform: scale(1.05);
+            filter: brightness(1) saturate(1.3);
+        }
+
+        .header-text-overlay {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            text-align: center;
+            background: linear-gradient(to top, rgba(0,0,0,0.7), rgba(0,0,0,0.3));
+            padding: 20px;
+        }
+
+        .main-header h1 {
+            font-family: 'Bebas Neue', sans-serif;
+            font-size: 5em;
+            letter-spacing: 5px;
+            color: var(--insightx-color);
+            text-shadow: 0 0 15px rgba(157, 80, 232, 0.7);
+            margin: 0;
+            line-height: 1;
+            opacity: 0;
+            transform: translateY(20px);
+            animation: slideUp 0.8s ease-out 0.3s forwards;
+        }
+
+        .main-header .tagline {
+            font-family: 'Montserrat', sans-serif;
+            font-size: 1.2em;
+            color: rgba(255, 255, 255, 0.8);
+            font-weight: 400;
+            margin-top: 10px;
+            letter-spacing: 1px;
+            text-transform: uppercase;
+            opacity: 0;
+            transform: translateY(20px);
+            animation: slideUp 0.8s ease-out 0.5s forwards;
+        }
+        
+        @keyframes slideUp {
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        .form-section, .success-section {
+            padding: 40px;
+            background: var(--form-bg-gradient);
+            transition: opacity 0.5s ease-in-out, transform 0.5s ease-in-out;
+        }
+        
+        .section-title {
+            font-size: 1.8em;
+            font-weight: 600;
+            color: var(--text-color);
+            text-align: center;
+            margin-bottom: 15px; 
+            position: relative;
+        }
+
+        .section-title::after {
+            content: '';
+            display: block;
+            width: 50px;
+            height: 2px;
+            background: var(--accent-color);
+            margin: 10px auto 0;
+            transition: all 0.4s cubic-bezier(0.2, 0.8, 0.2, 1);
+        }
+
+        .creative-container:hover .section-title::after {
+            width: 80px;
+            box-shadow: 0 0 15px rgba(230, 100, 101, 0.7);
+        }
+        
+        .form-section p, .success-section p {
+            margin-bottom: 30px;
+        }
+
+        .form-group {
+            margin-bottom: 25px;
+        }
+
+        label {
+            display: block;
+            margin-bottom: 8px;
+            font-weight: 600;
+            font-size: 0.95em;
+            color: rgba(255, 255, 255, 0.9);
+            letter-spacing: 0.5px;
+            transition: color 0.4s cubic-bezier(0.2, 0.8, 0.2, 1);
+        }
+        
+        input:focus ~ label, select:focus ~ label {
+            color: var(--insightx-color);
+        }
+
+        input, select {
+            width: 100%;
+            padding: 14px 12px;
+            border: 1px solid rgba(255, 255, 255, 0.2);
+            border-radius: 8px;
+            background-color: rgba(255, 255, 255, 0.05);
+            color: var(--text-color);
+            font-size: 1em;
+            transition: all 0.4s cubic-bezier(0.2, 0.8, 0.2, 1);
+            outline: none;
+            box-sizing: border-box;
+            box-shadow: inset 0 0 5px rgba(0, 0, 0, 0.2);
+            font-weight: 400;
+        }
+
+        input::placeholder {
+            color: rgba(255, 255, 255, 0.6);
+            transition: all 0.4s cubic-bezier(0.2, 0.8, 0.2, 1);
+        }
+
+        input:focus::placeholder {
+            transform: translateX(5px);
+            opacity: 0;
+        }
+        
+        input:hover, select:hover {
+            border-color: rgba(255, 255, 255, 0.4);
+            background-color: rgba(255, 255, 255, 0.1);
+            transform: translateY(-3px) scale(1.01);
+            box-shadow: 0 8px 20px rgba(157, 80, 232, 0.3), inset 0 0 8px rgba(0, 0, 0, 0.3);
+        }
+
+        input:focus, select:focus {
+            border-color: var(--insightx-color);
+            background-color: rgba(255, 255, 255, 0.15);
+            box-shadow: 0 0 30px rgba(157, 80, 232, 0.9), inset 0 0 10px rgba(0, 0, 0, 0.5);
+            transform: translateY(-3px) scale(1.01);
+            animation: input-pulse 1s infinite alternate;
+        }
+
+        @keyframes input-pulse {
+            from { background-color: rgba(255, 255, 255, 0.15); }
+            to { background-color: rgba(255, 255, 255, 0.2); }
+        }
+
+        .custom-select-wrapper {
+            position: relative;
+            width: 100%;
+        }
+
+        .custom-select-wrapper::after {
+            font-family: 'Font Awesome 5 Free';
+            font-weight: 900;
+            content: "\f078";
+            position: absolute;
+            top: 50%;
+            right: 15px;
+            transform: translateY(-50%) rotate(0deg);
+            color: rgba(255, 255, 255, 0.8);
+            pointer-events: none;
+            transition: all 0.4s cubic-bezier(0.2, 0.8, 0.2, 1);
+        }
+
+        select:focus + .custom-select-wrapper::after {
+            transform: translateY(-50%) rotate(180deg);
+            color: var(--insightx-color);
+        }
+        
+        select {
+            -webkit-appearance: none;
+            -moz-appearance: none;
+            appearance: none;
+            padding-right: 45px;
+            cursor: pointer;
+        }
+
+        select::-ms-expand {
+            display: none;
+        }
+
+        select option {
+            background-color: var(--main-bg);
+            color: var(--text-color);
+            padding: 10px;
+            border-bottom: 1px solid rgba(255, 255, 255, 0.05);
+        }
+
+        .select-group {
+            display: flex;
+            gap: 20px;
+        }
+
+        .select-group > div {
+            flex: 1;
+        }
+
+        .submit-button {
+            position: relative;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            width: 100%;
+            padding: 16px;
+            background: var(--insightx-color);
+            color: white;
+            border: none;
+            border-radius: 50px;
+            font-size: 1.15em;
+            font-weight: 600;
+            cursor: pointer;
+            overflow: hidden;
+            z-index: 1;
+            transition: all 0.5s cubic-bezier(0.22, 1, 0.36, 1);
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.2);
+            margin-top: 20px;
+        }
+
+        .submit-button span {
+            position: relative;
+            z-index: 2;
+        }
+        
+        .submit-button::before {
+            content: '';
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            width: 0;
+            height: 0;
+            border-radius: 50%;
+            background-color: rgba(255, 255, 255, 0.2);
+            transition: all 0.6s cubic-bezier(0.2, 0.8, 0.2, 1);
+            transform: translate(-50%, -50%);
+            z-index: 1;
+        }
+        
+        .submit-button:hover {
+            transform: translateY(-8px) scale(1.02);
+            box-shadow: 0 15px 35px rgba(138, 43, 226, 0.9), 0 0 40px rgba(163, 93, 216, 0.8);
+            background: #4b0082;
+        }
+        
+        .submit-button:hover::before {
+            width: 250px;
+            height: 250px;
+            background-color: rgba(255, 255, 255, 0.1);
+        }
+
+        .submit-button:active {
+            transform: translateY(0) scale(0.98);
+            box-shadow: 0 2px 5px rgba(0, 0, 0, 0.3);
+            background: var(--insightx-color);
+        }
+        
+        .submit-button:active::before {
+            width: 0;
+            height: 0;
+            background-color: rgba(255, 255, 255, 0.2);
+        }
+
+        .validation-error {
+            color: #ff6b6b;
+            font-size: 0.85em;
+            margin-top: 5px;
+            display: none;
+            font-weight: 400;
+        }
+
+        .footer-section {
+            padding: 40px;
+            border-top: var(--glass-border);
+            background-color: rgba(0, 0, 0, 0.1);
+        }
+
+        .contact-group {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 20px;
+            text-align: center;
+        }
+
+        .contact-item {
+            font-size: 1em;
+            color: rgba(255, 255, 255, 0.7);
+            display: flex;
+            flex-direction: column;
+            gap: 5px;
+            transition: all 0.4s cubic-bezier(0.2, 0.8, 0.2, 1);
+        }
+        
+        .contact-item span {
+            font-weight: 500;
+            color: var(--text-color);
+            transition: color 0.4s ease;
+        }
+        
+        .contact-item a {
+            color: inherit;
+            text-decoration: none;
+            transition: color 0.4s ease;
+        }
+
+        .contact-item:hover a, .contact-item:hover span {
+            color: var(--accent-color);
+            transform: translateY(-8px) scale(1.05);
+        }
+
+        .social-links {
+            display: flex;
+            justify-content: center;
+            gap: 25px;
+            margin-top: 35px;
+            margin-bottom: 20px;
+        }
+        
+        .social-links a {
+            font-size: 2em;
+            color: var(--text-color);
+            transition: all 0.4s cubic-bezier(0.68, -0.55, 0.27, 1.55);
+        }
+
+        .social-links a:hover {
+            transform: scale(1.3) translateY(-8px);
+            filter: drop-shadow(0 0 10px var(--insightx-color));
+        }
+
+        .fa-instagram:hover { color: #E1306C; }
+        .fa-whatsapp:hover { color: #25D366; }
+        .fa-linkedin:hover { color: #0077B5; }
+
+        @media (max-width: 600px) {
+            .creative-container {
+                margin: 10px;
+            }
+            .form-section, .footer-section, .success-section {
+                padding: 25px;
+            }
+            .main-header h1 {
+                font-size: 3em;
+            }
+            .main-header .tagline {
+                font-size: 1em;
+            }
+            .main-header {
+                height: 180px;
+            }
+            .select-group {
+                flex-direction: column;
+                gap: 15px;
+            }
+            .contact-group {
+                grid-template-columns: 1fr;
+            }
+            .social-links {
+                gap: 20px;
+            }
+            .top-hero-banner {
+                height: 150px;
+            }
+        }
+
+        .hidden {
+            display: none;
+            opacity: 0;
+            transform: translateY(20px);
+        }
+
+        .show {
+            display: block;
+            opacity: 1;
+            transform: translateY(0);
+        }
+
+        .success-message {
+            text-align: center;
+            padding: 40px;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            min-height: 400px;
+        }
+
+        .success-icon {
+            font-size: 4em;
+            color: #28a745;
+            text-shadow: 0 0 15px rgba(40, 167, 69, 0.5);
+            animation: bounceIn 0.8s ease-in-out;
+            margin-bottom: 20px;
+        }
+        
+        @keyframes bounceIn {
+            0% {
+                transform: scale(0.3);
+                opacity: 0;
+            }
+            50% {
+                transform: scale(1.1);
+                opacity: 1;
+            }
+            70% {
+                transform: scale(0.9);
+            }
+            100% {
+                transform: scale(1);
+            }
+        }
+        
+        .success-message h2 {
+            font-size: 2.5em;
+            font-weight: 700;
+            color: #fff;
+            margin-bottom: 10px;
+            text-shadow: 0 0 10px rgba(255, 255, 255, 0.3);
+            animation: fadeIn 1s ease-out 0.5s forwards;
+            opacity: 0;
+        }
+
+        .success-message p {
+            font-size: 1.1em;
+            color: rgba(255, 255, 255, 0.8);
+            line-height: 1.5;
+            margin-bottom: 20px;
+            animation: fadeIn 1s ease-out 0.7s forwards;
+            opacity: 0;
+        }
+
+        @keyframes fadeIn {
+            to {
+                opacity: 1;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="background-video-container">
+        <video class="background-video" autoplay loop muted playsinline>
+            <source src="vid2.mp4" type="video/mp4">
+            Your browser does not support the video tag.
+        </video>
+        <div class="video-overlay"></div>
+    </div>
+
+    <div class="creative-container">
+        <div class="top-hero-banner">
+            <img src="unnamed.png" alt="Event Pre-Banner">
+        </div>
+
+        <header class="main-header">
+            <img src="bnr.jpg" alt="InsightX Event Banner" class="main-banner-image">
+            <div class="header-text-overlay">
+                <h1>InsightX</h1>
+                <p class="tagline">Unlock Your Potential, Elevate Your Future</p>
+            </div>
+        </header>
+
+        <main id="form-container" class="form-section">
+            <h2 class="section-title">Registration Form</h2>
+            <p style="text-align: center; opacity: 0.8; line-height: 1.6;">
+                Discover what it takes to reach the next level in your journey. Uncover strategies, insights, and pathways to elevate your potential.
+            </p>
+            <form id="registrationForm">
+                <div class="form-group">
+                    <label for="fullName">Full Name*</label>
+                    <input type="text" id="fullName" name="fullName" placeholder="Your Full Name" required>
+                    <div class="validation-error" id="fullNameError">Please enter your full name.</div>
+                </div>
+                <div class="form-group">
+                    <label for="email">Email Address*</label>
+                    <input type="email" id="email" name="email" placeholder="your.email@example.com" required>
+                    <div class="validation-error" id="emailError">Please enter a valid email address.</div>
+                </div>
+                <div class="form-group">
+                    <label for="contactNumber">Contact Number*</label>
+                    <input type="tel" id="contactNumber" name="contactNumber" placeholder="+91 98765 43210" required>
+                    <div class="validation-error" id="contactNumberError">Please enter a valid 10-digit number.</div>
+                </div>
+                <div class="select-group">
+                    <div class="form-group">
+                        <label for="currentYear">Current Year*</label>
+                        <div class="custom-select-wrapper">
+                            <select id="currentYear" name="currentYear" required>
+                                <option value="" disabled selected>Select Year</option>
+                                <option value="1">First Year</option>
+                                <option value="2">Second Year</option>
+                                <option value="3">Third Year</option>
+                                <option value="4">Fourth Year</option>
+                            </select>
+                        </div>
+                        <div class="validation-error" id="currentYearError">Please select your year.</div>
+                    </div>
+                    <div class="form-group">
+                        <label for="branch">Branch*</label>
+                        <div class="custom-select-wrapper">
+                            <select id="branch" name="branch" required>
+                                <option value="" disabled selected>Select Branch</option>
+                                <option value="AIDS">AI & DS</option>
+                                <option value="COMPS">COMPS</option>
+                                <option value="IT">IT</option>
+                                <option value="CSBS">CSBS</option>
+                                <option value="CCE">CCE</option>
+                                <option value="RAI">RAI</option>
+                                <option value="MECH">MECH</option>
+                                <option value="EXTC">EXTC</option>
+                                <option value="ETRX">ETRX</option>
+                                <option value="VLSI">VLSI</option>
+                            </select>
+                        </div>
+                        <div class="validation-error" id="branchError">Please select your branch.</div>
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    <h2 class="section-title">Purpose of Attending</h2>
+                    <p style="text-align: center; opacity: 0.8; line-height: 1.6; margin-bottom: 25px;">
+                        Why do you want to attend this event? (Optional)
+                    </p>
+                    <div class="custom-select-wrapper">
+                        <select id="purpose" name="purpose">
+                            <option value="" selected>Select a reason (optional)</option>
+                            <option value="Networking">Networking with professionals</option>
+                            <option value="Skill Development">Skill development and learning</option>
+                            <option value="Career Opportunities">Exploring career opportunities</option>
+                            <option value="Inspiration">Gaining inspiration</option>
+                            <option value="General Interest">General interest in the topic</option>
+                        </select>
+                    </div>
+                </div>
+
+                <button type="submit" class="submit-button">
+                    <span>Register for InsightX</span>
+                </button>
+            </form>
+        </main>
+
+        <div id="success-container" class="success-section hidden">
+            <div class="success-message">
+                <i class="fas fa-check-circle success-icon"></i>
+                <h2>Registration Successful!</h2>
+                <p>
+                    You've successfully registered for InsightX. Your journey to new insights has just begun.
+                </p>
+                <p>
+                    We can't wait to see you there. Get ready to network, learn, and grow!
+                </p>
+            </div>
+        </div>
+
+        <footer class="footer-section">
+            <section>
+                <h2 class="section-title">For Any Queries</h2>
+                <div class="contact-group">
+                    <div class="contact-item">
+                        <span>Sanjeevani</span>
+                        <a href="tel:91 79 7724 9924">+91 79772 49924</a>
+                    </div>
+                    <div class="contact-item">
+                        <span>Anushka</span>
+                        <a href="tel:91 96 1913 680">+91 96191 13680</a>
+                    </div>
+                    <div class="contact-item">
+                        <span>Janice</span>
+                        <a href="tel:91 98 2053 2319">+91 98205 32319</a>
+                    </div>
+                </div>
+            </section>
+            
+            <section>
+                <h2 class="section-title" style="margin-top: 30px;">Connect with Us</h2>
+                <div class="social-links">
+                    <a href="https://www.instagram.com/alumnicell_kjsce/" target="_blank" aria-label="Instagram"><i class="fab fa-instagram"></i></a>
+                    <a href="https://chat.whatsapp.com/IST9UanxqTv74DKiMdY9eQ?mode=ems_share_c" target="_blank" aria-label="WhatsApp Community"><i class="fab fa-whatsapp"></i></a>
+                    <a href="https://www.linkedin.com/in/alumnicellkjsce/" target="_blank" aria-label="LinkedIn"><i class="fab fa-linkedin"></i></a>
+                </div>
+            </section>
+        </footer>
+    </div>
+
+    <script>
+        document.getElementById('registrationForm').addEventListener('submit', function(event) {
+            event.preventDefault();
+            
+            let isValid = true;
+            const formInputs = [
+                { id: 'fullName', validator: value => value.trim() !== '' },
+                { id: 'email', validator: value => /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(value.trim()) },
+                { id: 'contactNumber', validator: value => /^[0-9]{10}$/.test(value.trim()) },
+                { id: 'currentYear', validator: value => value !== '' },
+                { id: 'branch', validator: value => value !== '' }
+            ];
+
+            formInputs.forEach(item => {
+                const element = document.getElementById(item.id);
+                const errorElement = document.getElementById(item.id + 'Error');
+                
+                if (item.validator(element.value)) {
+                    errorElement.style.display = 'none';
+                } else {
+                    errorElement.style.display = 'block';
+                    isValid = false;
+                }
+            });
+
+            if (isValid) {
+                const formContainer = document.getElementById('form-container');
+                const successContainer = document.getElementById('success-container');
+                
+                formContainer.style.opacity = '0';
+                formContainer.style.transform = 'translateY(-20px)';
+
+                setTimeout(() => {
+                    formContainer.style.display = 'none';
+                    successContainer.classList.remove('hidden');
+                    setTimeout(() => {
+                        successContainer.classList.add('show');
+                    }, 50);
+                }, 500);
+
+                const formData = {
+                    fullName: document.getElementById('fullName').value.trim(),
+                    email: document.getElementById('email').value.trim(),
+                    contactNumber: document.getElementById('contactNumber').value.trim(),
+                    currentYear: document.getElementById('currentYear').value,
+                    branch: document.getElementById('branch').value,
+                    purpose: document.getElementById('purpose').value || 'Not specified'
+                };
+
+                console.log('Final Form Data:', formData);
+            } else {
+                alert('Please correct the highlighted fields and try again.');
+            }
+        });
+    </script>
+</body>
+</html>
