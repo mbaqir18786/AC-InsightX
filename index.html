@@ -10,629 +10,463 @@
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <style>
         :root {
-            --dark-bg: #11022e;
-            --main-bg: #1c034b;
-            --glass-bg: rgba(255, 255, 255, 0.05);
+            --primary-blue: #090930;    
+            --secondary-blue: #0E0E4D;  
+            --fiery-orange: #C04A00;    
+            --bright-orange: #FF6600;  
+            --text-color: #f0f0f0;      
+            --accent-gold: #F7D066;     
+            --input-bg-light: rgba(255, 255, 255, 0.08); 
+            --success-green: #4CAF50;
+            --instagram-color: radial-gradient(circle at 30% 107%, #fdf497 0%, #fdf497 5%, #fd5949 45%, #d6249f 60%, #285AEB 90%);
+            --whatsapp-color: #25D366;
+            --linkedin-color: #0A66C2;
+            --dark-bg: var(--primary-blue);
+            --glass-bg: rgba(255, 255, 255, 0.03); 
             --glass-border: 1px solid rgba(255, 255, 255, 0.1);
-            --text-color: #f0f0f0;
-            --accent-color: #e66465;
-            --insightx-color: #9d50e8;
-            --form-bg-gradient: linear-gradient(180deg, rgba(255, 255, 255, 0.03), rgba(255, 255, 255, 0));
+        }
+
+        html {
+            scroll-behavior: smooth;
         }
 
         body {
             font-family: 'Montserrat', sans-serif;
             margin: 0;
-            padding: 0;
+            padding: 40px 0;
             display: flex;
             justify-content: center;
             align-items: center;
             min-height: 100vh;
-            background: linear-gradient(135deg, var(--dark-bg), var(--main-bg));
+            background: var(--secondary-blue); 
             color: var(--text-color);
             position: relative;
-            background-attachment: fixed;
             overflow-x: hidden;
-            padding: 40px 0;
-            transition: opacity 0.5s ease-in-out;
+            z-index: 1; 
         }
-
-        .background-video-container {
+        
+        #video-background {
             position: fixed;
-            top: 0;
-            left: 0;
-            width: 100vw;
-            height: 100vh;
-            z-index: -2;
-            overflow: hidden;
-        }
-
-        .background-video {
-            position: absolute;
-            top: 50%;
-            left: 50%;
-            min-width: 100%;
-            min-height: 100%;
-            width: auto;
-            height: auto;
-            transform: translateX(-50%) translateY(-50%);
-            object-fit: cover;
-            filter: brightness(0.7) contrast(1.1);
-            animation: pan-zoom 30s linear infinite alternate;
-        }
-
-        .video-overlay {
-            position: absolute;
             top: 0;
             left: 0;
             width: 100%;
             height: 100%;
-            background-color: rgba(0, 0, 0, 0.4);
-            z-index: -1;
-            animation: overlay-pulse 4s infinite alternate;
+            object-fit: cover;
+            z-index: -2;
+            opacity: 0.55;
         }
-
-        @keyframes pan-zoom {
-            0% { transform: scale(1.0) translateX(-50%) translateY(-50%); }
-            100% { transform: scale(1.1) translateX(-50%) translateY(-50%); }
-        }
-
-        @keyframes overlay-pulse {
-            0% { background-color: rgba(0, 0, 0, 0.4); }
-            100% { background-color: rgba(0, 0, 0, 0.5); }
-        }
-
+        
         .creative-container {
             width: 100%;
-            max-width: 700px;
+            max-width: 600px; 
             background: var(--glass-bg);
-            border-radius: 25px;
+            border-radius: 20px;
             border: var(--glass-border);
-            backdrop-filter: blur(15px);
-            -webkit-backdrop-filter: blur(15px);
-            box-shadow: 0 8px 32px 0 rgba(0, 0, 0, 0.37);
-            transition: all 0.6s cubic-bezier(0.2, 0.8, 0.2, 1);
+            backdrop-filter: blur(10px); 
+            -webkit-backdrop-filter: blur(10px);
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.4);
+            transition: all 0.4s ease-in-out;
             padding: 0;
             margin: 20px;
             overflow: hidden;
             z-index: 1;
-            position: relative;
-            animation: container-pulse 5s infinite alternate;
-        }
-
-        @keyframes container-pulse {
-            0% { box-shadow: 0 8px 32px 0 rgba(0, 0, 0, 0.37); }
-            100% { box-shadow: 0 10px 40px 0 rgba(0, 0, 0, 0.5), 0 0 25px rgba(157, 80, 232, 0.4); }
         }
 
         .creative-container:hover {
-            transform: translateY(-8px) scale(1.005);
-            box-shadow: 0 15px 45px 0 rgba(0, 0, 0, 0.5);
-            animation-play-state: paused;
-        }
-        
-        .top-hero-banner {
-            width: 100%;
-            height: 200px;
-            position: relative;
-            z-index: 2;
-            clip-path: polygon(0 0, 100% 0, 100% 85%, 0 100%);
-            transition: clip-path 0.5s ease-in-out;
-            overflow: hidden;
-        }
-
-        .top-hero-banner img {
-            width: 100%;
-            height: 100%;
-            object-fit: cover;
-            display: block;
-            transition: transform 0.5s ease-in-out, filter 0.5s ease-in-out;
-        }
-
-        .creative-container:hover .top-hero-banner {
-            clip-path: polygon(0 0, 100% 0, 100% 95%, 0 100%);
-        }
-
-        .creative-container:hover .top-hero-banner img {
-            transform: scale(1.05);
-            filter: brightness(1.1) saturate(1.3);
+            transform: translateY(-5px);
+            box-shadow: 0 15px 40px rgba(0, 0, 0, 0.6);
         }
 
         .main-header {
-            position: relative;
-            height: 250px;
+            width: 100%;
+            height: auto;
             overflow: hidden;
         }
 
-        .main-header .main-banner-image {
+        .main-banner-image {
             width: 100%;
-            height: 100%;
-            object-fit: cover;
-            filter: brightness(0.8) saturate(1.2);
-            transition: transform 0.5s ease-in-out, filter 0.5s ease-in-out;
+            height: auto;
+            display: block; 
+            border-top-left-radius: 20px; 
+            border-top-right-radius: 20px; 
         }
         
-        .creative-container:hover .main-banner-image {
-            transform: scale(1.05);
-            filter: brightness(1) saturate(1.3);
-        }
-
-        .header-text-overlay {
-            position: absolute;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            display: flex;
-            flex-direction: column;
-            justify-content: center;
-            align-items: center;
-            text-align: center;
-            background: linear-gradient(to top, rgba(0,0,0,0.7), rgba(0,0,0,0.3));
-            padding: 20px;
-        }
-
-        .main-header h1 {
-            font-family: 'Bebas Neue', sans-serif;
-            font-size: 5em;
-            letter-spacing: 5px;
-            color: var(--insightx-color);
-            text-shadow: 0 0 15px rgba(157, 80, 232, 0.7);
-            margin: 0;
-            line-height: 1;
-            opacity: 0;
-            transform: translateY(20px);
-            animation: slideUp 0.8s ease-out 0.3s forwards;
-        }
-
-        .main-header .tagline {
-            font-family: 'Montserrat', sans-serif;
-            font-size: 1.2em;
-            color: rgba(255, 255, 255, 0.8);
-            font-weight: 400;
-            margin-top: 10px;
-            letter-spacing: 1px;
-            text-transform: uppercase;
-            opacity: 0;
-            transform: translateY(20px);
-            animation: slideUp 0.8s ease-out 0.5s forwards;
-        }
-        
-        @keyframes slideUp {
-            to {
-                opacity: 1;
-                transform: translateY(0);
-            }
-        }
-
-        .form-section, .success-section {
+        .form-section, .success-section, .footer-section {
             padding: 40px;
-            background: var(--form-bg-gradient);
+            background: rgba(0, 0, 0, 0.1); 
             transition: opacity 0.5s ease-in-out, transform 0.5s ease-in-out;
         }
         
         .section-title {
-            font-size: 1.8em;
-            font-weight: 600;
+            font-family: 'Bebas Neue', sans-serif;
+            letter-spacing: 2px;
+            font-size: 2.2em;
             color: var(--text-color);
             text-align: center;
-            margin-bottom: 15px; 
+            margin-bottom: 10px; 
             position: relative;
+            animation: fadeInDown 0.7s ease-out;
+        }
+        
+        @keyframes fadeInDown {
+            from { opacity: 0; transform: translateY(-10px); }
+            to { opacity: 1; transform: translateY(0); }
         }
 
         .section-title::after {
             content: '';
             display: block;
-            width: 50px;
-            height: 2px;
-            background: var(--accent-color);
-            margin: 10px auto 0;
-            transition: all 0.4s cubic-bezier(0.2, 0.8, 0.2, 1);
-        }
-
-        .creative-container:hover .section-title::after {
-            width: 80px;
-            box-shadow: 0 0 15px rgba(230, 100, 101, 0.7);
+            width: 60px;
+            height: 3px;
+            background: var(--accent-gold); 
+            margin: 10px auto 25px;
+            border-radius: 5px;
+            box-shadow: 0 0 10px rgba(247, 208, 102, 0.5);
         }
         
-        .form-section p, .success-section p {
+        .description-text {
+            text-align: center;
+            opacity: 0.85;
+            line-height: 1.5;
             margin-bottom: 30px;
         }
 
         .form-group {
             margin-bottom: 25px;
+            position: relative;
+            transition: all 0.3s ease; 
+            border: 1px solid transparent; 
+            border-radius: 8px; 
         }
 
-        label {
-            display: block;
-            margin-bottom: 8px;
-            font-weight: 600;
-            font-size: 0.95em;
-            color: rgba(255, 255, 255, 0.9);
-            letter-spacing: 0.5px;
-            transition: color 0.4s cubic-bezier(0.2, 0.8, 0.2, 1);
+        .form-group:has(input:focus), 
+        .form-group:has(select:focus),
+        .form-group.valid {
+            border: 1px solid transparent; 
+            padding: 0; 
+            margin: 0; 
+            margin-bottom: 25px; 
+            box-shadow: none; 
         }
         
-        input:focus ~ label, select:focus ~ label {
-            color: var(--insightx-color);
+        label {
+            display: block;
+            font-size: 0.9em;
+            font-weight: 500;
+            color: rgba(255, 255, 255, 0.8);
+            margin-bottom: 8px;
+            transition: color 0.3s;
         }
-
+        
         input, select {
             width: 100%;
-            padding: 14px 12px;
+            padding: 12px 15px; 
             border: 1px solid rgba(255, 255, 255, 0.2);
             border-radius: 8px;
-            background-color: rgba(255, 255, 255, 0.05);
+            background-color: var(--input-bg-light);
             color: var(--text-color);
             font-size: 1em;
-            transition: all 0.4s cubic-bezier(0.2, 0.8, 0.2, 1);
-            outline: none;
+            transition: all 0.3s ease;
             box-sizing: border-box;
-            box-shadow: inset 0 0 5px rgba(0, 0, 0, 0.2);
-            font-weight: 400;
+            -webkit-appearance: none; 
+            appearance: none;
+            z-index: 1; 
         }
 
         input::placeholder {
-            color: rgba(255, 255, 255, 0.6);
-            transition: all 0.4s cubic-bezier(0.2, 0.8, 0.2, 1);
+            color: rgba(255, 255, 255, 0.4);
         }
 
-        input:focus::placeholder {
-            transform: translateX(5px);
-            opacity: 0;
-        }
-        
         input:hover, select:hover {
             border-color: rgba(255, 255, 255, 0.4);
-            background-color: rgba(255, 255, 255, 0.1);
-            transform: translateY(-3px) scale(1.01);
-            box-shadow: 0 8px 20px rgba(157, 80, 232, 0.3), inset 0 0 8px rgba(0, 0, 0, 0.3);
         }
 
         input:focus, select:focus {
-            border-color: var(--insightx-color);
+            outline: none;
+            border-color: var(--bright-orange); 
             background-color: rgba(255, 255, 255, 0.15);
-            box-shadow: 0 0 30px rgba(157, 80, 232, 0.9), inset 0 0 10px rgba(0, 0, 0, 0.5);
-            transform: translateY(-3px) scale(1.01);
-            animation: input-pulse 1s infinite alternate;
+            box-shadow: 0 0 0 3px rgba(255, 120, 0, 0.4);
+            transform: none; 
+        }
+        
+        .form-group.valid input, .form-group.valid select {
+            border-color: var(--accent-gold);
+        }
+        
+        .validation-error {
+            font-size: 0.8em;
+            color: #ffaa6b; 
+            margin-top: 5px;
+            display: none;
+            overflow: hidden; 
+            max-height: 0; 
+            transition: max-height 0.3s ease-in-out, opacity 0.3s ease-in-out;
+            opacity: 0;
         }
 
-        @keyframes input-pulse {
-            from { background-color: rgba(255, 255, 255, 0.15); }
-            to { background-color: rgba(255, 255, 255, 0.2); }
+        .validation-error.show-error {
+            display: block;
+            max-height: 50px; 
+            opacity: 1;
         }
-
+        
         .custom-select-wrapper {
             position: relative;
+            display: block;
         }
-
+        
         .custom-select-wrapper::after {
-            font-family: 'Font Awesome 5 Free';
+            content: "\f0d7"; 
+            font-family: 'Font Awesome 6 Free';
             font-weight: 900;
-            content: "\f078";
             position: absolute;
             top: 50%;
             right: 15px;
-            transform: translateY(-50%) rotate(0deg);
-            color: rgba(255, 255, 255, 0.8);
+            transform: translateY(-50%);
+            color: rgba(255, 255, 255, 0.6);
             pointer-events: none;
-            transition: all 0.4s cubic-bezier(0.2, 0.8, 0.2, 1);
+            transition: transform 0.3s, color 0.3s;
+            z-index: 3; 
         }
 
         select:focus + .custom-select-wrapper::after {
             transform: translateY(-50%) rotate(180deg);
-            color: var(--insightx-color);
-        }
-        
-        select {
-            -webkit-appearance: none;
-            -moz-appearance: none;
-            appearance: none;
-            padding-right: 45px;
-            cursor: pointer;
-        }
-
-        select::-ms-expand {
-            display: none;
+            color: var(--bright-orange); 
         }
 
         select option {
-            background-color: var(--main-bg);
+            background-color: var(--secondary-blue); 
             color: var(--text-color);
-            padding: 10px;
-            border-bottom: 1px solid rgba(255, 255, 255, 0.05);
         }
-
+        
         .select-group {
             display: flex;
             gap: 20px;
         }
-
-        .select-group > div {
+        
+        .select-group .form-group {
             flex: 1;
         }
-
+        
+        /* CORRECTED SUBMIT BUTTON STYLES */
         .submit-button {
+            width: 100%;
+            padding: 15px;
+            border: none;
+            border-radius: 8px;
+            font-size: 1.1em;
+            font-weight: 600;
+            color: white;
+            cursor: pointer;
+            background: linear-gradient(90deg, var(--fiery-orange), var(--bright-orange));
+            background-size: 200% 100%; 
+            box-shadow: 0 4px 0 var(--fiery-orange), 0 5px 15px rgba(0, 0, 0, 0.4); 
+            transition: all 0.3s cubic-bezier(0.25, 0.8, 0.25, 1);
+            margin-top: 20px;
             position: relative;
             display: flex;
-            align-items: center;
             justify-content: center;
-            width: 100%;
-            padding: 16px;
-            background: var(--insightx-color);
-            color: white;
-            border: none;
-            border-radius: 50px;
-            font-size: 1.15em;
-            font-weight: 600;
-            cursor: pointer;
+            align-items: center;
             overflow: hidden;
-            z-index: 1;
-            transition: all 0.5s cubic-bezier(0.22, 1, 0.36, 1);
-            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.2);
-            margin-top: 20px;
+            border-bottom: 4px solid var(--fiery-orange);
+            transform-style: preserve-3d;
         }
 
-        .submit-button span {
-            position: relative;
-            z-index: 2;
-        }
-        
-        .submit-button::before {
-            content: '';
-            position: absolute;
-            top: 50%;
-            left: 50%;
-            width: 0;
-            height: 0;
-            border-radius: 50%;
-            background-color: rgba(255, 255, 255, 0.2);
-            transition: all 0.6s cubic-bezier(0.2, 0.8, 0.2, 1);
-            transform: translate(-50%, -50%);
-            z-index: 1;
-        }
-        
         .submit-button:hover {
-            transform: translateY(-8px) scale(1.02);
-            box-shadow: 0 15px 35px rgba(138, 43, 226, 0.9), 0 0 40px rgba(163, 93, 216, 0.8);
-            background: #4b0082;
-        }
-        
-        .submit-button:hover::before {
-            width: 250px;
-            height: 250px;
-            background-color: rgba(255, 255, 255, 0.1);
+            transform: translateY(-5px); 
+            background-position: -100% 0;
+            box-shadow: 0 10px 0 var(--fiery-orange), 
+                        0 18px 30px rgba(0, 0, 0, 0.6),
+                        0 0 20px rgba(255, 102, 0, 0.8);
+            border-bottom: 4px solid var(--bright-orange);
         }
 
         .submit-button:active {
-            transform: translateY(0) scale(0.98);
-            box-shadow: 0 2px 5px rgba(0, 0, 0, 0.3);
-            background: var(--insightx-color);
+            transform: translateY(-1px);
+            background-position: 0 0;
+            box-shadow: 0 2px 0 var(--fiery-orange), 
+                        0 3px 10px rgba(0, 0, 0, 0.3);
+            border-bottom: 4px solid var(--fiery-orange);
+        }
+
+        .submit-button .button-text {
+            transition: opacity 0.2s ease;
+            z-index: 10;
         }
         
-        .submit-button:active::before {
-            width: 0;
-            height: 0;
-            background-color: rgba(255, 255, 255, 0.2);
-        }
-
-        .validation-error {
-            color: #ff6b6b;
-            font-size: 0.85em;
-            margin-top: 5px;
-            display: none;
-            font-weight: 400;
-        }
-
-        .footer-section {
-            padding: 40px;
-            border-top: var(--glass-border);
-            background-color: rgba(0, 0, 0, 0.1);
-        }
-
-        .contact-group {
-            display: grid;
-            grid-template-columns: repeat(3, 1fr);
-            gap: 20px;
-            text-align: center;
-        }
-
-        .contact-item {
-            font-size: 1em;
-            color: rgba(255, 255, 255, 0.7);
-            display: flex;
-            flex-direction: column;
-            gap: 5px;
-            transition: all 0.4s cubic-bezier(0.2, 0.8, 0.2, 1);
-        }
-        
-        .contact-item span {
-            font-weight: 500;
-            color: var(--text-color);
-            transition: color 0.4s ease;
-        }
-        
-        .contact-item a {
-            color: inherit;
-            text-decoration: none;
-            transition: color 0.4s ease;
-        }
-
-        .contact-item:hover a, .contact-item:hover span {
-            color: var(--accent-color);
-            transform: translateY(-8px) scale(1.05);
-        }
-
-        .social-links {
-            display: flex;
-            justify-content: center;
-            gap: 25px;
-            margin-top: 35px;
-            margin-bottom: 20px;
-        }
-        
-        .social-links a {
-            font-size: 2em;
-            color: var(--text-color);
-            transition: all 0.4s cubic-bezier(0.68, -0.55, 0.27, 1.55);
-        }
-
-        .social-links a:hover {
-            transform: scale(1.3) translateY(-8px);
-            filter: drop-shadow(0 0 10px var(--insightx-color));
-        }
-
-        .fa-instagram:hover { color: #E1306C; }
-        .fa-whatsapp:hover { color: #25D366; }
-        .fa-linkedin:hover { color: #0077B5; }
-
-        @media (max-width: 600px) {
-            .creative-container {
-                margin: 10px;
-            }
-            .form-section, .footer-section, .success-section {
-                padding: 25px;
-            }
-            .main-header h1 {
-                font-size: 3em;
-            }
-            .main-header .tagline {
-                font-size: 1em;
-            }
-            .main-header {
-                height: 180px;
-            }
-            .select-group {
-                flex-direction: column;
-                gap: 15px;
-            }
-            .contact-group {
-                grid-template-columns: 1fr;
-            }
-            .social-links {
-                gap: 20px;
-            }
-            .top-hero-banner {
-                height: 150px;
-            }
-        }
-
-        .hidden {
-            display: none;
+        .submit-button.loading .button-text {
             opacity: 0;
-            transform: translateY(20px);
+        }
+        
+        .submit-button:disabled {
+            cursor: not-allowed;
+            background: var(--fiery-orange);
+            background-position: 0 0;
+            opacity: 0.7;
+            transform: none;
+            box-shadow: 0 5px 0 var(--fiery-orange), 0 8px 20px rgba(0, 0, 0, 0.5);
+            border-bottom: 3px solid var(--fiery-orange);
         }
 
-        .show {
+        .spinner {
+            position: absolute;
+            border: 3px solid rgba(255, 255, 255, 0.3);
+            border-radius: 50%;
+            border-top-color: #fff;
+            width: 24px;
+            height: 24px;
+            animation: spin 1s ease-in-out infinite;
+            display: none; 
+        }
+        
+        .submit-button.loading .spinner {
+            display: block; 
+        }
+
+        @keyframes spin {
+            to { transform: rotate(360deg); }
+        }
+
+        .success-section { 
+            text-align: center;
+            opacity: 0; 
+            transform: translateY(20px);
             display: block;
+        }
+        
+        .success-section.show {
             opacity: 1;
             transform: translateY(0);
         }
 
-        .success-message {
-            text-align: center;
-            padding: 40px;
-            display: flex;
-            flex-direction: column;
-            justify-content: center;
-            align-items: center;
-            min-height: 400px;
-        }
-
         .success-icon {
-            font-size: 4em;
-            color: #28a745;
-            text-shadow: 0 0 15px rgba(40, 167, 69, 0.5);
-            animation: bounceIn 0.8s ease-in-out;
-            margin-bottom: 20px;
+            font-size: 4.5em;
+            color: var(--success-green); 
+            text-shadow: 0 0 15px rgba(76, 175, 80, 0.7); 
+            margin-bottom: 15px;
+            transform: scale(0.5); 
+            opacity: 0;
+            animation: bounceIn 0.8s forwards 0.6s; 
         }
         
         @keyframes bounceIn {
-            0% {
-                transform: scale(0.3);
-                opacity: 0;
-            }
-            50% {
-                transform: scale(1.1);
-                opacity: 1;
-            }
-            70% {
-                transform: scale(0.9);
-            }
-            100% {
-                transform: scale(1);
-            }
+            0% { transform: scale(0.5); opacity: 0; }
+            70% { transform: scale(1.1); opacity: 1; }
+            100% { transform: scale(1); opacity: 1; }
         }
         
-        .success-message h2 {
-            font-size: 2.5em;
-            font-weight: 700;
-            color: #fff;
+        .success-section h2 {
+            font-size: 2em;
+            color: var(--text-color);
             margin-bottom: 10px;
-            text-shadow: 0 0 10px rgba(255, 255, 255, 0.3);
-            animation: fadeIn 1s ease-out 0.5s forwards;
-            opacity: 0;
         }
-
+        
         .success-message p {
-            font-size: 1.1em;
-            color: rgba(255, 255, 255, 0.8);
-            line-height: 1.5;
-            margin-bottom: 20px;
-            animation: fadeIn 1s ease-out 0.7s forwards;
             opacity: 0;
+            animation: fadeIn 1s forwards 1.2s; 
         }
 
         @keyframes fadeIn {
-            to {
-                opacity: 1;
-            }
+            to { opacity: 1; }
         }
+
+        .footer-section { border-top: 1px solid rgba(255, 255, 255, 0.1); }
+        .contact-group { display: flex; justify-content: center; gap: 30px; flex-wrap: wrap; margin-top: 10px; }
+        .contact-item { text-align: center; }
+        .contact-item span { display: block; font-weight: 600; color: rgba(255, 255, 255, 0.9); margin-bottom: 5px; }
+        .contact-item a { 
+            color: var(--text-color); 
+            text-decoration: none; 
+            font-size: 0.9em; 
+            opacity: 0.8; 
+            transition: color 0.3s, opacity 0.3s, text-shadow 0.3s; 
+        }
+        
+        .contact-item a:hover { 
+            color: var(--bright-orange); 
+            opacity: 1; 
+            text-shadow: 0 0 5px rgba(255, 102, 0, 0.6); 
+        }
+        
+        .social-links { display: flex; justify-content: center; gap: 25px; margin-top: 20px; }
+        .social-links a { 
+            font-size: 1.8em; 
+            color: var(--text-color); 
+            transition: all 0.3s ease; 
+            opacity: 0.8; 
+            text-decoration: none; 
+        }
+        
+        .social-links a:hover {
+             transform: scale(1.1); 
+             opacity: 1;
+        }
+
+        .social-links .fa-instagram {
+            background: var(--instagram-color);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            color: #d6249f; 
+        }
+        
+        .social-links .fa-whatsapp {
+            color: var(--whatsapp-color);
+            filter: drop-shadow(0 0 5px rgba(37, 211, 102, 0.5));
+        }
+
+        .social-links .fa-linkedin {
+            color: var(--linkedin-color);
+            filter: drop-shadow(0 0 5px rgba(10, 102, 194, 0.5));
+        }
+
+        @media (max-width: 800px) {
+            body { padding: 0; }
+            .creative-container { margin: 0; border-radius: 0; }
+            .main-banner-image { border-top-left-radius: 0; border-top-right-radius: 0; }
+            .form-section, .footer-section, .success-section { padding: 30px 20px; }
+            .section-title { font-size: 1.8em; }
+            .select-group { flex-direction: column; gap: 15px; }
+            .contact-group { gap: 20px; }
+            .social-links { gap: 18px; }
+        }
+
+        .hidden { display: none; }
     </style>
 </head>
 <body>
-    <div class="background-video-container">
-        <video class="background-video" autoplay loop muted playsinline>
-            <source src="vid2.mp4" type="video/mp4">
-            Your browser does not support the video tag.
-        </video>
-        <div class="video-overlay"></div>
-    </div>
-
+    
+    <video autoplay muted loop id="video-background">
+        <source src="./gridlinvid.mp4" type="video/mp4">
+        Your browser does not support the video tag.
+    </video>
+    
     <div class="creative-container">
-        <div class="top-hero-banner">
-            <img src="unnamed.png" alt="Event Pre-Banner">
-        </div>
-
         <header class="main-header">
-            <img src="bnr.jpg" alt="InsightX Event Banner" class="main-banner-image">
-            <div class="header-text-overlay">
-                <h1>InsightX</h1>
-                <p class="tagline">Unlock Your Potential, Elevate Your Future</p>
-            </div>
+            <img src="./Screenshot 2025-09-27 112545.png" alt="InsightX Event Banner" class="main-banner-image">
         </header>
-
+        
         <main id="form-container" class="form-section">
             <h2 class="section-title">Registration Form</h2>
-            <p style="text-align: center; opacity: 0.8; line-height: 1.6;">
+            <p class="description-text">
                 Discover what it takes to reach the next level in your journey. Uncover strategies, insights, and pathways to elevate your potential.
             </p>
-            <form id="registrationForm">
+            <form id="registrationForm" novalidate>
                 <div class="form-group">
                     <label for="fullName">Full Name*</label>
                     <input type="text" id="fullName" name="fullName" placeholder="Your Full Name" required>
-                    <div class="validation-error" id="fullNameError">Please enter your full name.</div>
+                    <div class="validation-error" id="fullNameError" aria-live="polite">Please enter your full name.</div>
                 </div>
                 <div class="form-group">
                     <label for="email">Email Address*</label>
                     <input type="email" id="email" name="email" placeholder="your.email@example.com" required>
-                    <div class="validation-error" id="emailError">Please enter a valid email address.</div>
+                    <div class="validation-error" id="emailError" aria-live="polite">Please enter a valid email address.</div>
                 </div>
                 <div class="form-group">
                     <label for="contactNumber">Contact Number*</label>
-                    <input type="tel" id="contactNumber" name="contactNumber" placeholder="+91 98765 43210" required>
-                    <div class="validation-error" id="contactNumberError">Please enter a valid 10-digit number.</div>
+                    <input type="tel" id="contactNumber" name="contactNumber" placeholder="9876543210" required maxlength="10">
+                    <div class="validation-error" id="contactNumberError" aria-live="polite">Please enter a valid 10-digit number.</div>
                 </div>
+                
                 <div class="select-group">
                     <div class="form-group">
                         <label for="currentYear">Current Year*</label>
@@ -645,7 +479,7 @@
                                 <option value="4">Fourth Year</option>
                             </select>
                         </div>
-                        <div class="validation-error" id="currentYearError">Please select your year.</div>
+                        <div class="validation-error" id="currentYearError" aria-live="polite">Please select your year.</div>
                     </div>
                     <div class="form-group">
                         <label for="branch">Branch*</label>
@@ -664,13 +498,13 @@
                                 <option value="VLSI">VLSI</option>
                             </select>
                         </div>
-                        <div class="validation-error" id="branchError">Please select your branch.</div>
+                        <div class="validation-error" id="branchError" aria-live="polite">Please select your branch.</div>
                     </div>
                 </div>
 
-                <div class="form-group">
+                <div class="form-group" style="margin-top: 40px;">
                     <h2 class="section-title">Purpose of Attending</h2>
-                    <p style="text-align: center; opacity: 0.8; line-height: 1.6; margin-bottom: 25px;">
+                    <p class="description-text" style="margin-bottom: 25px; margin-top: 10px;">
                         Why do you want to attend this event? (Optional)
                     </p>
                     <div class="custom-select-wrapper">
@@ -685,8 +519,9 @@
                     </div>
                 </div>
 
-                <button type="submit" class="submit-button">
-                    <span>Register for InsightX</span>
+                <button type="submit" class="submit-button" id="submitBtn">
+                    <span class="button-text">REGISTER NOW</span>
+                    <div class="spinner"></div>
                 </button>
             </form>
         </main>
@@ -695,11 +530,11 @@
             <div class="success-message">
                 <i class="fas fa-check-circle success-icon"></i>
                 <h2>Registration Successful!</h2>
-                <p>
+                <p class="description-text">
                     You've successfully registered for InsightX. Your journey to new insights has just begun.
                 </p>
-                <p>
-                    We can't wait to see you there. Get ready to network, learn, and grow!
+                <p class="description-text">
+                    We can't wait to see you there. Get ready to **network, learn, and grow!**
                 </p>
             </div>
         </div>
@@ -710,15 +545,15 @@
                 <div class="contact-group">
                     <div class="contact-item">
                         <span>Sanjeevani</span>
-                        <a href="tel:91 79 7724 9924">+91 79772 49924</a>
+                        <a href="tel:+917977249924">+91 79772 49924</a>
                     </div>
                     <div class="contact-item">
                         <span>Anushka</span>
-                        <a href="tel:91 96 1913 680">+91 96191 13680</a>
+                        <a href="tel:+919619113680">+91 96191 13680</a>
                     </div>
                     <div class="contact-item">
                         <span>Janice</span>
-                        <a href="tel:91 98 2053 2319">+91 98205 32319</a>
+                        <a href="tel:+919820532319">+91 98205 32319</a>
                     </div>
                 </div>
             </section>
@@ -735,58 +570,91 @@
     </div>
 
     <script>
-        document.getElementById('registrationForm').addEventListener('submit', function(event) {
-            event.preventDefault();
-            
-            let isValid = true;
+        document.addEventListener('DOMContentLoaded', () => {
+            const registrationForm = document.getElementById('registrationForm');
+            const submitBtn = document.getElementById('submitBtn');
+
             const formInputs = [
                 { id: 'fullName', validator: value => value.trim() !== '' },
                 { id: 'email', validator: value => /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(value.trim()) },
-                { id: 'contactNumber', validator: value => /^[0-9]{10}$/.test(value.trim()) },
+                { id: 'contactNumber', validator: value => /^[0-9]{10}$/.test(value.trim()) }, 
                 { id: 'currentYear', validator: value => value !== '' },
                 { id: 'branch', validator: value => value !== '' }
             ];
 
-            formInputs.forEach(item => {
+            const validateField = (item) => {
                 const element = document.getElementById(item.id);
                 const errorElement = document.getElementById(item.id + 'Error');
+                const formGroup = element.closest('.form-group');
+                const isValid = item.validator(element.value);
                 
-                if (item.validator(element.value)) {
-                    errorElement.style.display = 'none';
+                if (!isValid) {
+                    errorElement.classList.add('show-error');
+                    element.style.borderColor = '#ffaa6b'; 
+                    formGroup.classList.remove('valid');
                 } else {
-                    errorElement.style.display = 'block';
-                    isValid = false;
+                    errorElement.classList.remove('show-error');
+                    element.style.borderColor = 'rgba(255, 255, 255, 0.2)';
+                    formGroup.classList.add('valid');
+                }
+                
+                return isValid;
+            };
+            
+            formInputs.forEach(item => {
+                const element = document.getElementById(item.id);
+                element.addEventListener('blur', () => {
+                    validateField(item);
+                });
+                
+                if (element.tagName === 'SELECT') {
+                    element.addEventListener('change', () => {
+                        validateField(item);
+                    });
                 }
             });
 
-            if (isValid) {
-                const formContainer = document.getElementById('form-container');
-                const successContainer = document.getElementById('success-container');
+
+            registrationForm.addEventListener('submit', function(event) {
+                event.preventDefault();
                 
-                formContainer.style.opacity = '0';
-                formContainer.style.transform = 'translateY(-20px)';
+                const isFormValid = formInputs.map(validateField).every(isValid => isValid);
 
-                setTimeout(() => {
-                    formContainer.style.display = 'none';
-                    successContainer.classList.remove('hidden');
+                if (isFormValid) {
+                    submitBtn.classList.add('loading');
+                    submitBtn.disabled = true;
+
+                    const formData = {
+                        fullName: document.getElementById('fullName').value.trim(),
+                        email: document.getElementById('email').value.trim(),
+                        contactNumber: document.getElementById('contactNumber').value.trim(),
+                        currentYear: document.getElementById('currentYear').value,
+                        branch: document.getElementById('branch').value,
+                        purpose: document.getElementById('purpose').value || 'Not specified'
+                    };
+
+                    console.log('Final Form Data:', formData);
+
                     setTimeout(() => {
-                        successContainer.classList.add('show');
-                    }, 50);
-                }, 500);
-
-                const formData = {
-                    fullName: document.getElementById('fullName').value.trim(),
-                    email: document.getElementById('email').value.trim(),
-                    contactNumber: document.getElementById('contactNumber').value.trim(),
-                    currentYear: document.getElementById('currentYear').value,
-                    branch: document.getElementById('branch').value,
-                    purpose: document.getElementById('purpose').value || 'Not specified'
-                };
-
-                console.log('Final Form Data:', formData);
-            } else {
-                alert('Please correct the highlighted fields and try again.');
-            }
+                        const formContainer = document.getElementById('form-container');
+                        const successContainer = document.getElementById('success-container');
+                        
+                        formContainer.style.opacity = '0';
+                        formContainer.style.transform = 'translateY(-20px)';
+                        
+                        setTimeout(() => {
+                            formContainer.classList.add('hidden');
+                            successContainer.classList.remove('hidden');
+                            
+                            setTimeout(() => {
+                                successContainer.classList.add('show');
+                                submitBtn.classList.remove('loading');
+                                submitBtn.disabled = false;
+                            }, 50); 
+                        }, 500);
+                    }, 1500);
+                }
+            });
         });
     </script>
 </body>
