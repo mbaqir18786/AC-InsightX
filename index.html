@@ -3,13 +3,12 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>InsightX Registration</title>
+    <title>InsightX</title>
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@300;400;500;600;700&family=Bebas+Neue&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
-    <title>InsightX</title>
-    <link rel="icon" type="image/png" href="./logo.jpg"/> 
+    <link rel="icon" type="image/svg+xml" href="./logo.png" class="logo" style="border-radius: 50%;"/> 
     <style>
         :root {
             --primary-blue: #090930;    
@@ -46,7 +45,11 @@
             overflow-x: hidden;
             z-index: 1; 
         }
-        
+        .logo {
+            
+             border-radius: 50%;
+             object-fit: cover;    
+}
         #video-background {
             position: fixed;
             top: 0;
@@ -438,7 +441,7 @@
 <body>
     
     <video autoplay muted loop id="video-background">
-        <source src="./gridlinvid.mp4" type="video/mp4">
+        <source src="./bgnew.mp4" type="video/mp4">
         Your browser does not support the video tag.
     </video>
     
