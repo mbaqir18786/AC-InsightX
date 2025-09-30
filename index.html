@@ -576,114 +576,114 @@
     </div>
 
     <script>
-    document.addEventListener('DOMContentLoaded', () => {
-        const registrationForm = document.getElementById('registrationForm');
-        const submitBtn = document.getElementById('submitBtn');
+document.addEventListener('DOMContentLoaded', () => {
+    const registrationForm = document.getElementById('registrationForm');
+    const submitBtn = document.getElementById('submitBtn');
 
-        const formInputs = [
-            { id: 'fullName', validator: value => value.trim() !== '' },
-            { id: 'email', validator: value => /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(value.trim()) },
-            { id: 'contactNumber', validator: value => /^[0-9]{10}$/.test(value.trim()) }, 
-            { id: 'currentYear', validator: value => value !== '' },
-            { id: 'branch', validator: value => value !== '' }
-        ];
+    const formInputs = [
+        { id: 'fullName', validator: value => value.trim() !== '' },
+        { id: 'email', validator: value => /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(value.trim()) },
+        { id: 'contactNumber', validator: value => /^[0-9]{10}$/.test(value.trim()) }, 
+        { id: 'currentYear', validator: value => value !== '' },
+        { id: 'branch', validator: value => value !== '' }
+    ];
 
-        const validateField = (item) => {
-            const element = document.getElementById(item.id);
-            const errorElement = document.getElementById(item.id + 'Error');
-            const formGroup = element.closest('.form-group');
-            const isValid = item.validator(element.value);
-            
-            if (!isValid) {
-                errorElement.classList.add('show-error');
-                element.style.borderColor = '#ffaa6b'; 
-                formGroup.classList.remove('valid');
-            } else {
-                errorElement.classList.remove('show-error');
-                element.style.borderColor = 'rgba(255, 255, 255, 0.2)';
-                formGroup.classList.add('valid');
-            }
-            
-            return isValid;
-        };
+    const validateField = (item) => {
+        const element = document.getElementById(item.id);
+        const errorElement = document.getElementById(item.id + 'Error');
+        const formGroup = element.closest('.form-group');
+        const isValid = item.validator(element.value);
         
-        formInputs.forEach(item => {
-            const element = document.getElementById(item.id);
-            element.addEventListener('blur', () => {
+        if (!isValid) {
+            errorElement.classList.add('show-error');
+            element.style.borderColor = '#ffaa6b'; 
+            formGroup.classList.remove('valid');
+        } else {
+            errorElement.classList.remove('show-error');
+            element.style.borderColor = 'rgba(255, 255, 255, 0.2)';
+            formGroup.classList.add('valid');
+        }
+        
+        return isValid;
+    };
+    
+    formInputs.forEach(item => {
+        const element = document.getElementById(item.id);
+        element.addEventListener('blur', () => {
+            validateField(item);
+        });
+        
+        if (element.tagName === 'SELECT') {
+            element.addEventListener('change', () => {
                 validateField(item);
             });
+        }
+    });
+
+    registrationForm.addEventListener('submit', async function(event) {
+        event.preventDefault();
+        
+        const isFormValid = formInputs.map(validateField).every(isValid => isValid);
+
+        if (isFormValid) {
+            submitBtn.classList.add('loading');
+            submitBtn.disabled = true;
+
+            const formData = {
+                fullName: document.getElementById('fullName').value.trim(),
+                email: document.getElementById('email').value.trim(),
+                contactNumber: document.getElementById('contactNumber').value.trim(),
+                currentYear: document.getElementById('currentYear').value,
+                branch: document.getElementById('branch').value,
+                purpose: document.getElementById('purpose').value || 'Not specified'
+            };
             
-            if (element.tagName === 'SELECT') {
-                element.addEventListener('change', () => {
-                    validateField(item);
+            console.log('Final Form Data:', formData);
+
+            try {
+               
+                const res = await fetch("https://insight-x-2025-final-backend.onrender.com/api/register", {
+                    method: "POST",
+                    headers: { "Content-Type": "application/json" },
+                    body: JSON.stringify(formData)
                 });
-            }
-        });
 
-        registrationForm.addEventListener('submit', async function(event) {
-            event.preventDefault();
-            
-            const isFormValid = formInputs.map(validateField).every(isValid => isValid);
+                const data = await res.json();
 
-            if (isFormValid) {
-                submitBtn.classList.add('loading');
-                submitBtn.disabled = true;
-
-                const formData = {
-                    fullName: document.getElementById('fullName').value.trim(),
-                    email: document.getElementById('email').value.trim(),
-                    contactNumber: document.getElementById('contactNumber').value.trim(),
-                    currentYear: document.getElementById('currentYear').value,
-                    branch: document.getElementById('branch').value,
-                    purpose: document.getElementById('purpose').value || 'Not specified'
-                };
-
-                console.log('Final Form Data:', formData);
-
-                try {
-                    // 🔹 Call your Render backend
-                    const res = await fetch("https://insight-x-2025-final-backend.onrender.com/api/register", {
-                        method: "POST",
-                        headers: { "Content-Type": "application/json" },
-                        body: JSON.stringify(formData)
-                    });
-
-                    const data = await res.json();
-
-                    if (res.ok) {
-                        // ✅ Show success container
-                        const formContainer = document.getElementById('form-container');
-                        const successContainer = document.getElementById('success-container');
-                        
-                        formContainer.style.opacity = '0';
-                        formContainer.style.transform = 'translateY(-20px)';
+                if (res.ok) {
+                    
+                    const formContainer = document.getElementById('form-container');
+                    const successContainer = document.getElementById('success-container');
+                    
+                    formContainer.style.opacity = '0';
+                    formContainer.style.transform = 'translateY(-20px)';
+                    
+                    setTimeout(() => {
+                        formContainer.classList.add('hidden');
+                        successContainer.classList.remove('hidden');
                         
                         setTimeout(() => {
-                            formContainer.classList.add('hidden');
-                            successContainer.classList.remove('hidden');
-                            
-                            setTimeout(() => {
-                                successContainer.classList.add('show');
-                                submitBtn.classList.remove('loading');
-                                submitBtn.disabled = false;
-                            }, 50); 
-                        }, 500);
+                            successContainer.classList.add('show');
+                            submitBtn.classList.remove('loading');
+                            submitBtn.disabled = false;
+                        }, 50); 
+                    }, 500);
 
-                    } else {
-                        alert("⚠️ " + (data.message || "Something went wrong."));
-                        submitBtn.classList.remove('loading');
-                        submitBtn.disabled = false;
-                    }
-
-                } catch (error) {
-                    console.error("Error:", error);
-                    alert("❌ Could not connect to server. Try again later.");
+                } else {
+                    alert("⚠️ " + (data.message || "Something went wrong."));
                     submitBtn.classList.remove('loading');
                     submitBtn.disabled = false;
                 }
+
+            } catch (error) {
+                console.error("Error:", error);
+                alert("❌ Could not connect to server. Try again later.");
+                submitBtn.classList.remove('loading');
+                submitBtn.disabled = false;
             }
-        });
+        }
     });
+});
 </script>
 </body>
-</html
+</html>
