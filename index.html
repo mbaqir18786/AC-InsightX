@@ -448,7 +448,7 @@
     
     <div class="creative-container">
         <header class="main-header">
-            <img src="./ix.png" alt="InsightX Event Banner" class="main-banner-image">
+            <img src="./Screenshot 2025-09-27 112545.png" alt="InsightX Event Banner" class="main-banner-image">
         </header>
         
         <main id="form-container" class="form-section">
@@ -629,24 +629,24 @@ document.addEventListener('DOMContentLoaded', () => {
             submitBtn.classList.add('loading');
             submitBtn.disabled = true;
 
-            const formData = {
-                fullName: document.getElementById('fullName').value.trim(),
-                email: document.getElementById('email').value.trim(),
-                contactNumber: document.getElementById('contactNumber').value.trim(),
-                currentYear: document.getElementById('currentYear').value,
-                branch: document.getElementById('branch').value,
-                purpose: document.getElementById('purpose').value || 'Not specified'
-            };
-            
-            console.log('Final Form Data:', formData);
+                const formData = {
+                    fullName: document.getElementById('fullName').value.trim(),
+                    email: document.getElementById('email').value.trim(),
+                    contactNumber: document.getElementById('contactNumber').value.trim(),
+                    currentYear: document.getElementById('currentYear').value,
+                    branch: document.getElementById('branch').value,
+                    purpose: document.getElementById('purpose').value || 'Not specified'
+                };
 
-            try {
-               
-                const res = await fetch("https://insight-x-2025-final-backend.onrender.com/api/register", {
-                    method: "POST",
-                    headers: { "Content-Type": "application/json" },
-                    body: JSON.stringify(formData)
-                });
+                console.log('Final Form Data:', formData);
+
+                try {
+                    // 🔹 Call your Render backend
+                    const res = await fetch("https://insight-x-2025-final-backend.onrender.com/api/register", {
+                        method: "POST",
+                        headers: { "Content-Type": "application/json" },
+                        body: JSON.stringify(formData)
+                    });
 
                 const data = await res.json();
 
